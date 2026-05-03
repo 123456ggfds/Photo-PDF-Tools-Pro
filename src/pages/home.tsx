@@ -3,25 +3,121 @@ import { Navbar } from "@/components/layout/navbar";
 import { motion } from "framer-motion";
 import { Link } from "wouter";
 import {
-  ArrowRight, Zap, Lock, Grid2X2, Minimize, Scaling, Crop,
-  Repeat, RefreshCcw, SlidersHorizontal, Stamp, Wand2, Scissors,
-  BadgeCheck, Eraser,
+  ArrowRight,
+  Zap,
+  Lock,
+  Grid2X2,
+  Minimize,
+  Scaling,
+  Crop,
+  Repeat,
+  RefreshCcw,
+  SlidersHorizontal,
+  Stamp,
+  Wand2,
+  Scissors,
+  BadgeCheck,
+  Eraser,
   FileText,
 } from "lucide-react";
 
 const tools = [
-  { id: "merge",       icon: Grid2X2,          color: "from-blue-500 to-cyan-400",      bg: "bg-blue-500/10",    titleKey: "tool_merge",       descKey: "tool_merge_desc" },
-  { id: "compress",    icon: Minimize,          color: "from-purple-500 to-pink-500",    bg: "bg-purple-500/10",  titleKey: "tool_compress",    descKey: "tool_compress_desc" },
-  { id: "resize",      icon: Scaling,           color: "from-orange-500 to-red-500",     bg: "bg-orange-500/10",  titleKey: "tool_resize",      descKey: "tool_resize_desc" },
-  { id: "crop",        icon: Crop,              color: "from-green-500 to-emerald-400",  bg: "bg-green-500/10",   titleKey: "tool_crop",        descKey: "tool_crop_desc" },
-  { id: "convert",     icon: Repeat,            color: "from-indigo-500 to-purple-500",  bg: "bg-indigo-500/10",  titleKey: "tool_convert",     descKey: "tool_convert_desc" },
-  { id: "rotate",      icon: RefreshCcw,        color: "from-yellow-400 to-orange-500",  bg: "bg-yellow-500/10",  titleKey: "tool_rotate",      descKey: "tool_rotate_desc" },
-  { id: "adjustments", icon: SlidersHorizontal, color: "from-pink-500 to-rose-400",      bg: "bg-pink-500/10",    titleKey: "tool_adjustments", descKey: "tool_adjustments_desc" },
-  { id: "watermark",   icon: Stamp,             color: "from-cyan-500 to-blue-500",      bg: "bg-cyan-500/10",    titleKey: "tool_watermark",   descKey: "tool_watermark_desc" },
-  { id: "auto",        icon: Wand2,             color: "from-violet-600 to-fuchsia-500", bg: "bg-violet-500/10",  titleKey: "tool_auto",        descKey: "tool_auto_desc" },
-  { id: "batch-crop",  icon: Scissors,          color: "from-emerald-500 to-teal-400",   bg: "bg-emerald-500/10", titleKey: "tool_batch_crop",  descKey: "tool_batch_crop_desc" },
-  { id: "exif-fix",    icon: BadgeCheck,        color: "from-sky-500 to-blue-500",       bg: "bg-sky-500/10",     titleKey: "tool_exif_fix",    descKey: "tool_exif_fix_desc" },
-  { id: "bg-remove",   icon: Eraser,            color: "from-amber-500 to-orange-500",   bg: "bg-amber-500/10",   titleKey: "tool_bg_remove",   descKey: "tool_bg_remove_desc" },
+  {
+    id: "merge",
+    icon: Grid2X2,
+    color: "from-blue-500 to-cyan-400",
+    bg: "bg-blue-500/10",
+    titleKey: "tool_merge",
+    descKey: "tool_merge_desc",
+  },
+  {
+    id: "compress",
+    icon: Minimize,
+    color: "from-purple-500 to-pink-500",
+    bg: "bg-purple-500/10",
+    titleKey: "tool_compress",
+    descKey: "tool_compress_desc",
+  },
+  {
+    id: "resize",
+    icon: Scaling,
+    color: "from-orange-500 to-red-500",
+    bg: "bg-orange-500/10",
+    titleKey: "tool_resize",
+    descKey: "tool_resize_desc",
+  },
+  {
+    id: "crop",
+    icon: Crop,
+    color: "from-green-500 to-emerald-400",
+    bg: "bg-green-500/10",
+    titleKey: "tool_crop",
+    descKey: "tool_crop_desc",
+  },
+  {
+    id: "convert",
+    icon: Repeat,
+    color: "from-indigo-500 to-purple-500",
+    bg: "bg-indigo-500/10",
+    titleKey: "tool_convert",
+    descKey: "tool_convert_desc",
+  },
+  {
+    id: "rotate",
+    icon: RefreshCcw,
+    color: "from-yellow-400 to-orange-500",
+    bg: "bg-yellow-500/10",
+    titleKey: "tool_rotate",
+    descKey: "tool_rotate_desc",
+  },
+  {
+    id: "adjustments",
+    icon: SlidersHorizontal,
+    color: "from-pink-500 to-rose-400",
+    bg: "bg-pink-500/10",
+    titleKey: "tool_adjustments",
+    descKey: "tool_adjustments_desc",
+  },
+  {
+    id: "watermark",
+    icon: Stamp,
+    color: "from-cyan-500 to-blue-500",
+    bg: "bg-cyan-500/10",
+    titleKey: "tool_watermark",
+    descKey: "tool_watermark_desc",
+  },
+  {
+    id: "auto",
+    icon: Wand2,
+    color: "from-violet-600 to-fuchsia-500",
+    bg: "bg-violet-500/10",
+    titleKey: "tool_auto",
+    descKey: "tool_auto_desc",
+  },
+  {
+    id: "batch-crop",
+    icon: Scissors,
+    color: "from-emerald-500 to-teal-400",
+    bg: "bg-emerald-500/10",
+    titleKey: "tool_batch_crop",
+    descKey: "tool_batch_crop_desc",
+  },
+  {
+    id: "exif-fix",
+    icon: BadgeCheck,
+    color: "from-sky-500 to-blue-500",
+    bg: "bg-sky-500/10",
+    titleKey: "tool_exif_fix",
+    descKey: "tool_exif_fix_desc",
+  },
+  {
+    id: "bg-remove",
+    icon: Eraser,
+    color: "from-amber-500 to-orange-500",
+    bg: "bg-amber-500/10",
+    titleKey: "tool_bg_remove",
+    descKey: "tool_bg_remove_desc",
+  },
 ];
 
 export default function Home() {
@@ -58,23 +154,33 @@ export default function Home() {
               <Zap className="w-3.5 h-3.5 text-yellow-400" /> {t("hero_fast")}
             </div>
             <div className="flex items-center gap-1.5 text-xs text-white/45 border border-white/10 rounded-full px-3 py-1.5 bg-white/[0.03]">
-              <Lock className="w-3.5 h-3.5 text-emerald-400" /> {t("hero_private")}
+              <Lock className="w-3.5 h-3.5 text-emerald-400" />{" "}
+              {t("hero_private")}
             </div>
           </div>
         </section>
 
         <section className="py-5 md:py-6 shrink-0">
-          <Link href="/pdf" className="block rounded-3xl border border-violet-500/20 bg-gradient-to-r from-violet-500/10 via-fuchsia-500/10 to-cyan-500/10 p-5 md:p-6 hover:border-violet-400/40 transition-colors min-h-[88px] shadow-[0_10px_40px_rgba(139,92,246,0.08)]">
+          <Link
+            href="/pdf"
+            className="block rounded-3xl border border-violet-500/20 bg-gradient-to-r from-violet-500/10 via-fuchsia-500/10 to-cyan-500/10 p-5 md:p-6 hover:border-violet-400/40 transition-colors min-h-[88px] shadow-[0_10px_40px_rgba(139,92,246,0.08)]"
+          >
             <div className="flex items-center gap-4 min-h-[56px]">
               <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-red-500 to-rose-400 flex items-center justify-center shadow-lg ring-1 ring-white/10">
                 <FileText className="w-6 h-6 text-white" />
               </div>
               <div className="min-w-0 flex-1">
                 <div className="flex items-center gap-2 mb-1">
-                  <span className="text-[11px] uppercase tracking-[0.2em] text-violet-200/70">PDF</span>
-                  <span className="text-[11px] text-white/35">{t("hero_private")}</span>
+                  <span className="text-[11px] uppercase tracking-[0.2em] text-violet-200/70">
+                    PDF
+                  </span>
+                  <span className="text-[11px] text-white/35">
+                    {t("hero_private")}
+                  </span>
                 </div>
-                <h2 className="text-lg font-bold text-white">{t("tool_pdf")}</h2>
+                <h2 className="text-lg font-bold text-white">
+                  {t("tool_pdf")}
+                </h2>
                 <p className="text-sm text-white/55">{t("pdf_hub_desc")}</p>
               </div>
               <ArrowRight className="w-5 h-5 text-white/40" />
@@ -95,15 +201,21 @@ export default function Home() {
                     transition={{ delay: i * 0.02, duration: 0.25 }}
                     className="group flex items-start gap-3.5 p-4 rounded-2xl border border-white/[0.07] bg-white/[0.02] hover:bg-white/[0.05] hover:border-white/[0.12] transition-all duration-200 cursor-pointer min-h-[96px] shadow-[0_1px_0_rgba(255,255,255,0.03)_inset]"
                   >
-                    <div className={`w-10 h-10 rounded-xl bg-gradient-to-br ${tool.color} flex items-center justify-center shrink-0 shadow-md ring-1 ring-white/10`}>
+                    <div
+                      className={`w-10 h-10 rounded-xl bg-gradient-to-br ${tool.color} flex items-center justify-center shrink-0 shadow-md ring-1 ring-white/10`}
+                    >
                       <Icon className="w-5 h-5 text-white" />
                     </div>
                     <div className="min-w-0 flex-1 pt-0.5">
                       <div className="flex items-center justify-between gap-2 mb-1">
-                        <h3 className="text-sm font-semibold text-white truncate">{t(tool.titleKey as any)}</h3>
+                        <h3 className="text-sm font-semibold text-white truncate">
+                          {t(tool.titleKey as any)}
+                        </h3>
                         <ArrowRight className="w-3.5 h-3.5 text-white/20 group-hover:text-white/60 transition-colors shrink-0" />
                       </div>
-                      <p className="text-xs text-white/45 leading-relaxed line-clamp-2">{t(tool.descKey as any)}</p>
+                      <p className="text-xs text-white/45 leading-relaxed line-clamp-2">
+                        {t(tool.descKey as any)}
+                      </p>
                     </div>
                   </motion.div>
                 </Link>
@@ -120,7 +232,7 @@ export default function Home() {
           <span className="flex items-center gap-2">
             {t("hero_footer_secondary")}
             <span className="rounded-full border border-violet-400/40 bg-violet-500/15 px-2 py-1 text-[11px] font-bold text-violet-200">
-              {t("version_label")} 26.0.2
+              {t("version_label")} 26.2.0
             </span>
           </span>
         </div>

@@ -12,7 +12,8 @@ const translations = {
     hero_fast: "Fast",
     hero_private: "Private",
     hero_footer_primary: "All processing happens in your browser.",
-    hero_footer_secondary: "No server uploads · Free for now · Account not required",
+    hero_footer_secondary:
+      "No server uploads · Free for now · Account not required",
     back_to_home: "Back to Home",
     version_label: "Version",
     version_history: "Version History",
@@ -20,15 +21,9 @@ const translations = {
     version_history_close: "Close version history",
     version_history_title: "History",
     version_history_current: "Current",
+    version_history_item_2620: "26.2.0",
     version_history_item_2602: "26.0.2",
     version_history_item_2601: "26.0.1",
-    version_history_item_2600: "26.0.0",
-    version_history_item_2590: "25.9.0",
-    version_history_item_2580: "25.8.0",
-    version_history_item_2570: "25.7.0",
-    version_history_item_2560: "25.6.0",
-    version_history_item_2550: "25.5.0",
-    version_history_item_2540: "25.4.0",
     tools: "Tools",
     layout: "Layout",
     optimization: "Optimization",
@@ -36,7 +31,8 @@ const translations = {
     conversion: "Conversion",
     automation: "Automation",
     tool_merge: "Merge",
-    tool_merge_desc: "Combine multiple images into a grid, vertical, or horizontal layout.",
+    tool_merge_desc:
+      "Combine multiple images into a grid, vertical, or horizontal layout.",
     tool_compress: "Compress",
     tool_compress_desc: "Reduce file size while maintaining visual quality.",
     tool_resize: "Resize",
@@ -60,7 +56,8 @@ const translations = {
     tool_bg_remove: "Background Remove",
     tool_bg_remove_desc: "Remove backgrounds with a clean cutout workflow.",
     tool_pdf: "PDF Tools",
-    tool_pdf_desc: "Merge, split, compress, and convert PDF files — all in your browser.",
+    tool_pdf_desc:
+      "Merge, split, compress, and convert PDF files — all in your browser.",
     pdf_hub_desc: "All PDF tools in one place. No uploads. 100% private.",
     pdf_merge: "Merge PDF",
     pdf_merge_desc: "Combine multiple PDF files into a single document.",
@@ -77,7 +74,8 @@ const translations = {
     pdf_rotate: "Rotate PDF",
     pdf_rotate_desc: "Rotate all pages in a PDF by 90, 180, or 270 degrees.",
     pdf_pages_tool: "Page Numbers",
-    pdf_pages_tool_desc: "Add page numbers to the bottom-right corner of each page.",
+    pdf_pages_tool_desc:
+      "Add page numbers to the bottom-right corner of each page.",
     pdf_extract: "Extract Pages",
     pdf_extract_desc: "Create a new PDF from selected page numbers.",
     pdf_reorder: "Reorder Pages",
@@ -148,7 +146,8 @@ const translations = {
     quality: "Quality",
     change_image: "Change Image",
     upload_to_compress: "Upload an image to compress",
-    compression_note: "Compression preview requires saving to view file size changes.",
+    compression_note:
+      "Compression preview requires saving to view file size changes.",
     drag_drop: "Drag & drop an image here, or click to browse",
     drag_drop_merge: "Drag & drop images here, or click to select files",
     bg_preview: "Preview",
@@ -241,15 +240,9 @@ const translations = {
     version_history_close: "關閉版本歷史",
     version_history_title: "歷史版本",
     version_history_current: "目前版本",
+    version_history_item_2620: "26.2.0",
     version_history_item_2602: "26.0.2",
     version_history_item_2601: "26.0.1",
-    version_history_item_2600: "26.0.0",
-    version_history_item_2590: "25.9.0",
-    version_history_item_2580: "25.8.0",
-    version_history_item_2570: "25.7.0",
-    version_history_item_2560: "25.6.0",
-    version_history_item_2550: "25.5.0",
-    version_history_item_2540: "25.4.0",
     tools: "工具",
     layout: "排版",
     optimization: "優化",
@@ -454,7 +447,8 @@ const translations = {
     hero_fast: "高速",
     hero_private: "非公開",
     hero_footer_primary: "すべての処理はブラウザ内で実行されます。",
-    hero_footer_secondary: "サーバーへアップロードなし · 現在は無料 · アカウント不要",
+    hero_footer_secondary:
+      "サーバーへアップロードなし · 現在は無料 · アカウント不要",
     back_to_home: "ホームに戻る",
     version_label: "バージョン",
     version_history: "バージョン履歴",
@@ -462,15 +456,9 @@ const translations = {
     version_history_close: "履歴を閉じる",
     version_history_title: "履歴",
     version_history_current: "現在",
+    version_history_item_2620: "26.2.0",
     version_history_item_2602: "26.0.2",
     version_history_item_2601: "26.0.1",
-    version_history_item_2600: "26.0.0",
-    version_history_item_2590: "25.9.0",
-    version_history_item_2580: "25.8.0",
-    version_history_item_2570: "25.7.0",
-    version_history_item_2560: "25.6.0",
-    version_history_item_2550: "25.5.0",
-    version_history_item_2540: "25.4.0",
     tools: "ツール",
     layout: "レイアウト",
     optimization: "最適化",
@@ -478,9 +466,11 @@ const translations = {
     conversion: "変換",
     automation: "自動化",
     tool_merge: "結合",
-    tool_merge_desc: "複数の画像をグリッド、垂直、または水平レイアウトに結合します。",
+    tool_merge_desc:
+      "複数の画像をグリッド、垂直、または水平レイアウトに結合します。",
     tool_compress: "圧縮",
-    tool_compress_desc: "視覚的な品質を維持しながらファイルサイズを縮小します。",
+    tool_compress_desc:
+      "視覚的な品質を維持しながらファイルサイズを縮小します。",
     tool_resize: "リサイズ",
     tool_resize_desc: "画像の寸法とアスペクト比を変更します。",
     tool_crop: "クロップ",
@@ -492,7 +482,8 @@ const translations = {
     tool_adjustments: "調整",
     tool_adjustments_desc: "明るさ、コントラスト、彩度などを調整します。",
     tool_watermark: "透かし",
-    tool_watermark_desc: "作品を保護するためにテキストや画像の透かしを追加します。",
+    tool_watermark_desc:
+      "作品を保護するためにテキストや画像の透かしを追加します。",
     tool_auto: "自動パイプライン",
     tool_auto_desc: "画像を自動的に一括処理します。",
     tool_batch_crop: "一括クロップ",
@@ -503,7 +494,8 @@ const translations = {
     tool_bg_remove_desc: "ローカルで単色または近い背景を削除します。",
     tool_pdf: "PDF ツール",
     tool_pdf_desc: "PDF の結合・分割・圧縮・変換がブラウザ上で完結。",
-    pdf_hub_desc: "すべての PDF ツールをひとつの場所に。アップロード不要、完全プライベート。",
+    pdf_hub_desc:
+      "すべての PDF ツールをひとつの場所に。アップロード不要、完全プライベート。",
     pdf_merge: "PDF を結合",
     pdf_merge_desc: "複数の PDF を一つのファイルにまとめます。",
     pdf_split: "PDF を分割",
@@ -669,11 +661,24 @@ const translations = {
 };
 
 type TranslationKey = keyof typeof translations.en;
-type I18nContextType = { lang: Language; setLang: (lang: Language) => void; t: (key: TranslationKey) => string };
+type I18nContextType = {
+  lang: Language;
+  setLang: (lang: Language) => void;
+  t: (key: TranslationKey) => string;
+};
 const I18nContext = createContext<I18nContextType | undefined>(undefined);
 export function I18nProvider({ children }: { children: ReactNode }) {
   const [lang, setLang] = useState<Language>("en");
-  const t = (key: TranslationKey): string => translations[lang][key] ?? translations.en[key];
-  return <I18nContext.Provider value={{ lang, setLang, t }}>{children}</I18nContext.Provider>;
+  const t = (key: TranslationKey): string =>
+    translations[lang][key] ?? translations.en[key];
+  return (
+    <I18nContext.Provider value={{ lang, setLang, t }}>
+      {children}
+    </I18nContext.Provider>
+  );
 }
-export function useI18n() { const context = useContext(I18nContext); if (!context) throw new Error("useI18n must be used within an I18nProvider"); return context; }
+export function useI18n() {
+  const context = useContext(I18nContext);
+  if (!context) throw new Error("useI18n must be used within an I18nProvider");
+  return context;
+}

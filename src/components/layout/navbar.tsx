@@ -10,9 +10,15 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
 
-const LANG_LABELS: Record<string, string> = { en: "EN", zh: "中文", ja: "日本語" };
+const LANG_LABELS: Record<string, string> = {
+  en: "EN",
+  zh: "中文",
+  ja: "日本語",
+};
 
-interface NavbarProps { inlineMode?: boolean }
+interface NavbarProps {
+  inlineMode?: boolean;
+}
 
 export function Navbar({ inlineMode = false }: NavbarProps) {
   const { lang, setLang, t } = useI18n();
@@ -33,8 +39,11 @@ export function Navbar({ inlineMode = false }: NavbarProps) {
           {LANG_LABELS[lang]}
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end" className="bg-[#1c1f2a] border-white/10 text-white min-w-[120px]">
-        {(["en", "zh", "ja"] as const).map(l => (
+      <DropdownMenuContent
+        align="end"
+        className="bg-[#1c1f2a] border-white/10 text-white min-w-[120px]"
+      >
+        {(["en", "zh", "ja"] as const).map((l) => (
           <DropdownMenuItem
             key={l}
             data-testid={`lang-${l}`}
@@ -65,7 +74,7 @@ export function Navbar({ inlineMode = false }: NavbarProps) {
           <div className="relative">
             <button
               type="button"
-              onClick={() => setHistoryOpen(v => !v)}
+              onClick={() => setHistoryOpen((v) => !v)}
               className="inline-flex h-9 items-center gap-2 rounded-full border border-violet-300/40 bg-gradient-to-r from-violet-500/20 to-fuchsia-500/20 px-4 text-sm font-extrabold text-white shadow-[0_0_0_1px_rgba(139,92,246,0.12)] hover:from-violet-500/30 hover:to-fuchsia-500/30"
             >
               <History className="size-3.5 text-violet-200" />
@@ -77,10 +86,16 @@ export function Navbar({ inlineMode = false }: NavbarProps) {
                   {t("version_history_title")}
                 </div>
                 <div className="mt-2 space-y-2">
-                  {[
-                    { label: t("version_history_item_2602"), current: true },
-                    { label: t("version_history_item_2601") },
-                  ].map((item) => (
+                  {(
+                    [
+                      {
+                        label: t("version_history_item_2620"),
+                        current: true,
+                      },
+                      { label: t("version_history_item_2602") },
+                      { label: t("version_history_item_2601") },
+                    ] as { label: string; current?: boolean }[]
+                  ).map((item) => (
                     <div
                       key={item.label}
                       className={`flex items-center justify-between rounded-xl px-3 py-2 text-sm ${
@@ -89,7 +104,9 @@ export function Navbar({ inlineMode = false }: NavbarProps) {
                           : "bg-white/5 text-white/70"
                       }`}
                     >
-                      <span className={item.current ? "font-semibold" : ""}>{item.label}</span>
+                      <span className={item.current ? "font-semibold" : ""}>
+                        {item.label}
+                      </span>
                       {item.current && (
                         <span className="text-[10px] font-bold uppercase tracking-[0.24em] text-violet-200">
                           {t("version_history_current")}
@@ -102,9 +119,7 @@ export function Navbar({ inlineMode = false }: NavbarProps) {
             )}
           </div>
         )}
-        <div className="flex items-center gap-1">
-          {langSwitcher}
-        </div>
+        <div className="flex items-center gap-1">{langSwitcher}</div>
       </div>
     </header>
   );
