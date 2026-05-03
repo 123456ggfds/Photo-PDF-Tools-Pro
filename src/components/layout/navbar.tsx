@@ -89,11 +89,18 @@ export function Navbar({ inlineMode = false }: NavbarProps) {
                   {(
                     [
                       {
-                        label: t("version_history_item_2620"),
+                        label: t("version_history_item_2621"),
                         current: true,
                       },
-                      { label: t("version_history_item_2602") },
-                      { label: t("version_history_item_2601") },
+                      {
+                        label: t("version_history_item_2620"),
+                      },
+                      {
+                        label: t("version_history_item_2602"),
+                      },
+                      {
+                        label: t("version_history_item_2601"),
+                      },
                     ] as { label: string; current?: boolean }[]
                   ).map((item) => (
                     <div
