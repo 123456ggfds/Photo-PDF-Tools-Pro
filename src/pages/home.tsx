@@ -232,7 +232,7 @@ export default function Home() {
           <span className="flex items-center gap-2">
             {t("hero_footer_secondary")}
             <span className="rounded-full border border-violet-400/40 bg-violet-500/15 px-2 py-1 text-[11px] font-bold text-violet-200">
-              {t("version_label")} 26.2.1
+              {t("version_label")} 26.2.2
             </span>
           </span>
         </div>

@@ -4,6 +4,8 @@
   "compilerOptions": {
     "noEmit": true,
     "jsx": "preserve",
+    "module": "ESNext",
+    "target": "ES2022",
     "lib": ["esnext", "dom", "dom.iterable"],
     "resolveJsonModule": true,
     "allowImportingTsExtensions": true,

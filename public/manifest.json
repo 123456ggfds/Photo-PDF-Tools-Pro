@@ -1,0 +1,17 @@
+{
+  "name": "Photo & PDF Tools Pro",
+  "short_name": "PhotoTools",
+  "description": "Professional client-side image and PDF processing",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0f1117",
+  "theme_color": "#0f1117",
+  "icons": [
+    {
+      "src": "favicon.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

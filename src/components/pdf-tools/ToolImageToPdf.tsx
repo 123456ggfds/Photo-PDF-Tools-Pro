@@ -4,6 +4,7 @@ import { useI18n } from "@/lib/i18n";
 import { PDFDocument, StandardFonts, rgb } from "pdf-lib";
 import { ImageUp, X, GripVertical, Download, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { bytesToBlobPart } from "@/lib/blob";
 
 interface ImgFile { name: string; url: string; data: ArrayBuffer; size: number }
 
@@ -143,7 +144,7 @@ export function ToolImageToPdf() {
 
   const download = () => {
     if (!pdfBytes) return;
-    const blob = new Blob([pdfBytes], { type: "application/pdf" });
+    const blob = new Blob([bytesToBlobPart(pdfBytes)], { type: "application/pdf" });
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = url;

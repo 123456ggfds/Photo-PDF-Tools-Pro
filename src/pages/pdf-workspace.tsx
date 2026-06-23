@@ -27,7 +27,7 @@ const TOOL_META: Record<string, { titleKey: string; descKey: string; icon: any; 
 };
 
 export default function PdfWorkspace() {
-  const { pdfToolId } = useParams();
+  const { pdfToolId } = useParams<{ pdfToolId?: string }>();
   const { t } = useI18n();
 
   const meta = pdfToolId ? TOOL_META[pdfToolId] : null;

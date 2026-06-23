@@ -4,6 +4,7 @@ import { useI18n } from "@/lib/i18n";
 import { PDFDocument, StandardFonts, rgb } from "pdf-lib";
 import { FilePlus2, X, GripVertical, Download, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { bytesToBlobPart } from "@/lib/blob";
 
 interface PdfFile { name: string; data: ArrayBuffer; size: number }
 
@@ -73,7 +74,7 @@ export function ToolPdfMerge() {
 
   const download = () => {
     if (!mergedBytes) return;
-    const blob = new Blob([mergedBytes], { type: "application/pdf" });
+    const blob = new Blob([bytesToBlobPart(mergedBytes)], { type: "application/pdf" });
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = url;

@@ -49,7 +49,7 @@ export function ToolPdfToImage() {
         canvas.width = viewport.width;
         canvas.height = viewport.height;
         const ctx = canvas.getContext("2d")!;
-        await page.render({ canvasContext: ctx, viewport }).promise;
+        await page.render({ canvas, canvasContext: ctx, viewport }).promise;
         const url = canvas.toDataURL(`image/${format}`, format === "jpeg" ? 0.92 : 1);
         results.push({ url, page: i, width: viewport.width, height: viewport.height });
         setProgress(Math.round((i / pdf.numPages) * 100));

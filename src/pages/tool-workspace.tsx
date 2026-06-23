@@ -2,7 +2,7 @@ import { useParams, Link } from "wouter";
 import { useI18n } from "@/lib/i18n";
 import { ChevronLeft, Download, ImageIcon, Lock, Zap, Grid2X2, Minimize, Scaling, Crop, Repeat, RefreshCcw, SlidersHorizontal, Stamp, Wand2, Scissors, BadgeCheck, Eraser } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { useRef, useState, useCallback } from "react";
+import { useRef, useState, useCallback, useEffect } from "react";
 import { ToolMerge } from "@/components/tools/ToolMerge";
 import { ToolCompress } from "@/components/tools/ToolCompress";
 import { ToolResize } from "@/components/tools/ToolResize";
@@ -42,22 +42,47 @@ const TOOL_COLORS: Record<string, string> = {
 interface OutputInfo { canvas: HTMLCanvasElement; format: string; quality: number; w: number; h: number }
 
 export default function ToolWorkspace() {
-  const { toolId } = useParams();
+  const { toolId } = useParams<{ toolId?: string }>();
   const { t } = useI18n();
   const [output, setOutput] = useState<OutputInfo | null>(null);
   const previewCanvasRef = useRef<HTMLCanvasElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  const updatePreview = useCallback(() => {
+    if (!output || !previewCanvasRef.current || !containerRef.current) return;
+    
+    const sourceCanvas = output.canvas;
+    const previewCanvas = previewCanvasRef.current;
+    const container = containerRef.current;
+    
+    // Get container dimensions
+    const maxWidth = container.clientWidth;
+    const maxHeight = container.clientHeight;
+    
+    // Calculate scale to fit
+    const scale = Math.min(maxWidth / sourceCanvas.width, maxHeight / sourceCanvas.height, 1);
+    
+    previewCanvas.width = sourceCanvas.width;
+    previewCanvas.height = sourceCanvas.height;
+    
+    const ctx = previewCanvas.getContext("2d");
+    if (ctx) {
+      ctx.clearRect(0, 0, previewCanvas.width, previewCanvas.height);
+      ctx.drawImage(sourceCanvas, 0, 0);
+    }
+    
+    // Apply visual scaling via CSS for better performance and sharpness
+    previewCanvas.style.width = `${sourceCanvas.width * scale}px`;
+    previewCanvas.style.height = `${sourceCanvas.height * scale}px`;
+  }, [output]);
+
+  useEffect(() => {
+    updatePreview();
+    window.addEventListener("resize", updatePreview);
+    return () => window.removeEventListener("resize", updatePreview);
+  }, [updatePreview]);
 
   const handleCanvasReady = useCallback((sourceCanvas: HTMLCanvasElement, format = "image/png", quality = 0.92) => {
-    const previewCanvas = previewCanvasRef.current;
-    if (previewCanvas) {
-      previewCanvas.width = sourceCanvas.width;
-      previewCanvas.height = sourceCanvas.height;
-      const ctx = previewCanvas.getContext("2d");
-      if (ctx) {
-        ctx.clearRect(0, 0, previewCanvas.width, previewCanvas.height);
-        ctx.drawImage(sourceCanvas, 0, 0);
-      }
-    }
     setOutput({ canvas: sourceCanvas, format, quality, w: sourceCanvas.width, h: sourceCanvas.height });
   }, []);
 
@@ -139,7 +164,7 @@ export default function ToolWorkspace() {
       <div className="flex-1 grid grid-cols-1 md:grid-cols-[300px_minmax(0,1fr)] overflow-hidden">
 
         {/* Sidebar */}
-        <aside className="border-r border-white/[0.07] bg-[#12151e] overflow-y-auto flex flex-col min-w-0">
+        <aside className="border-r border-white/[0.07] bg-[#12151e] overflow-y-auto flex flex-col min-w-0 order-2 md:order-1">
           {/* Tool header inside sidebar */}
           <div className="px-4 py-4 border-b border-white/[0.07] shrink-0">
             <div className="flex items-center gap-3">
@@ -162,10 +187,10 @@ export default function ToolWorkspace() {
         </aside>
 
         {/* Canvas area */}
-        <main className="relative overflow-hidden flex flex-col bg-[#0a0c10] min-w-0">
+        <main className="relative overflow-hidden flex flex-col bg-[#0a0c10] min-w-0 order-1 md:order-2">
           {/* Canvas */}
-          <div className="flex-1 flex items-center justify-center p-4 md:p-8 overflow-hidden">
-            <div className="relative w-full max-w-[1120px] h-full flex items-center justify-center">
+          <div ref={containerRef} className="flex-1 flex items-center justify-center p-4 md:p-8 overflow-hidden">
+            <div className="relative w-full h-full flex items-center justify-center">
               {!hasOutput && (
                 <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 pointer-events-none select-none z-10">
                   <div className="w-16 h-16 rounded-2xl bg-white/[0.04] border border-white/10 flex items-center justify-center">
@@ -190,15 +215,12 @@ export default function ToolWorkspace() {
                 id="main-canvas"
                 ref={previewCanvasRef}
                 data-testid="main-canvas"
-                className="relative z-10 block max-w-full shadow-2xl transition-all duration-300 rounded-lg"
+                className="relative z-10 block shadow-2xl transition-all duration-300 rounded-lg"
                 style={{
-                  maxHeight: "calc(100vh - 8rem)",
                   objectFit: "contain",
                   opacity: hasOutput ? 1 : 0,
                   transform: hasOutput ? "scale(1)" : "scale(0.97)",
                 }}
-                width={800}
-                height={600}
               />
             </div>
           </div>

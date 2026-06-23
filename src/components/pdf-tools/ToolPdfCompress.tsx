@@ -4,6 +4,7 @@ import { useI18n } from "@/lib/i18n";
 import { PDFDocument, StandardFonts, rgb } from "pdf-lib";
 import { Minimize2, Download, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { bytesToBlobPart } from "@/lib/blob";
 
 export function ToolPdfCompress() {
   const addTopLeftTitle = async (doc: PDFDocument, title: string) => {
@@ -58,7 +59,7 @@ export function ToolPdfCompress() {
 
   const download = () => {
     if (!result) return;
-    const blob = new Blob([result.bytes], { type: "application/pdf" });
+    const blob = new Blob([bytesToBlobPart(result.bytes)], { type: "application/pdf" });
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = url;

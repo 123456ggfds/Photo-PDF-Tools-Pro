@@ -147,6 +147,9 @@ const translations = {
     quality: "Quality",
     change_image: "Change Image",
     upload_to_compress: "Upload an image to compress",
+    compress_original: "Original",
+    compress_output: "Estimated output",
+    compress_saved: "Saved",
     compression_note:
       "Compression preview requires saving to view file size changes.",
     drag_drop: "Drag & drop an image here, or click to browse",
@@ -203,6 +206,7 @@ const translations = {
     adj_exposure: "Exposure",
     adj_temperature: "Temperature",
     watermark_text: "Watermark Text",
+    watermark_default_text: "© My Photo",
     watermark_position: "Position",
     watermark_opacity: "Opacity",
     watermark_size: "Font Size",
