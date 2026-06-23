@@ -85,12 +85,21 @@ export function Navbar({ inlineMode = false }: NavbarProps) {
                 <div className="text-[11px] font-bold uppercase tracking-[0.28em] text-violet-200/75">
                   {t("version_history_title")}
                 </div>
-                <div className="mt-2 space-y-2">
+                <div className="mt-2 space-y-2 max-h-[300px] overflow-y-auto pr-1">
                   {(
                     [
                       {
-                        label: t("version_history_item_2621"),
+                        label: t("version_history_item_2630"),
                         current: true,
+                      },
+                      {
+                        label: t("version_history_item_2623"),
+                      },
+                      {
+                        label: t("version_history_item_2622"),
+                      },
+                      {
+                        label: t("version_history_item_2621"),
                       },
                       {
                         label: t("version_history_item_2620"),
