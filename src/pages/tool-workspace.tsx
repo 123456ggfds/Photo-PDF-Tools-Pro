@@ -71,15 +71,16 @@ export default function ToolWorkspace() {
       ctx.drawImage(sourceCanvas, 0, 0);
     }
     
-    // Apply visual scaling via CSS for better performance and sharpness
+    // Apply visual scaling via CSS
     previewCanvas.style.width = `${sourceCanvas.width * scale}px`;
     previewCanvas.style.height = `${sourceCanvas.height * scale}px`;
   }, [output]);
 
   useEffect(() => {
     updatePreview();
-    window.addEventListener("resize", updatePreview);
-    return () => window.removeEventListener("resize", updatePreview);
+    const observer = new ResizeObserver(updatePreview);
+    if (containerRef.current) observer.observe(containerRef.current);
+    return () => observer.disconnect();
   }, [updatePreview]);
 
   const handleCanvasReady = useCallback((sourceCanvas: HTMLCanvasElement, format = "image/png", quality = 0.92) => {
@@ -125,48 +126,46 @@ export default function ToolWorkspace() {
     <div className="h-screen bg-[#0f1117] text-white flex flex-col overflow-hidden">
       {/* ─── Top bar ─────────────────────────────────────────── */}
       <header className="h-14 border-b border-white/[0.07] bg-[#0f1117]/90 backdrop-blur sticky top-0 z-50 flex items-center justify-between px-4 gap-4 shrink-0">
-        <div className="flex items-center gap-3 min-w-0">
+        <div className="flex items-center gap-2 min-w-0">
           <Link
             href="/"
-            className="inline-flex h-8 items-center gap-1.5 rounded-full border border-white/10 bg-white/5 px-3 text-sm font-semibold text-white hover:bg-white/10"
+            className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-white/10 bg-white/5 text-white hover:bg-white/10"
           >
             <ChevronLeft className="w-4 h-4" />
-            {t("back_to_home")}
           </Link>
-          <div className="flex items-center gap-2.5 min-w-0">
+          <div className="flex items-center gap-2 min-w-0">
             {ToolIcon && (
               <div className={`w-7 h-7 rounded-lg bg-gradient-to-br ${toolColor} flex items-center justify-center shrink-0`}>
                 <ToolIcon className="w-4 h-4 text-white" />
               </div>
             )}
-            <h1 className="font-semibold text-base truncate text-white">{toolName}</h1>
+            <h1 className="font-semibold text-sm md:text-base truncate text-white">{toolName}</h1>
           </div>
         </div>
         <div className="flex items-center gap-2">
-          <div className="hidden md:flex items-center gap-3 text-xs text-white/35 mr-2">
+          <div className="hidden lg:flex items-center gap-3 text-xs text-white/35 mr-2">
             <span className="flex items-center gap-1.5"><Zap className="w-3 h-3 text-yellow-400/70" /> {t("workspace_local_only")}</span>
-            <span className="flex items-center gap-1.5"><Lock className="w-3 h-3 text-emerald-400/70" /> {t("workspace_private")}</span>
           </div>
-          <Navbar inlineMode />
           <Button
             data-testid="button-download"
             disabled={!hasOutput}
             onClick={handleDownload}
-            className="h-9 px-4 rounded-full bg-white text-black hover:bg-white/90 disabled:opacity-30 text-sm font-semibold gap-2"
+            className="h-8 px-3 md:h-9 md:px-4 rounded-full bg-white text-black hover:bg-white/90 disabled:opacity-30 text-xs md:text-sm font-semibold gap-1.5 md:gap-2"
           >
             <Download className="w-3.5 h-3.5" />
-            {t("download")}
+            <span className="hidden xs:inline">{t("download")}</span>
           </Button>
+          <Navbar inlineMode />
         </div>
       </header>
 
       {/* ─── Body ────────────────────────────────────────────── */}
-      <div className="flex-1 grid grid-cols-1 md:grid-cols-[300px_minmax(0,1fr)] overflow-hidden">
+      <div className="flex-1 flex flex-col md:flex-row overflow-hidden">
 
-        {/* Sidebar */}
-        <aside className="border-r border-white/[0.07] bg-[#12151e] overflow-y-auto flex flex-col min-w-0 order-2 md:order-1">
-          {/* Tool header inside sidebar */}
-          <div className="px-4 py-4 border-b border-white/[0.07] shrink-0">
+        {/* Sidebar / Controls - On mobile it stays at the bottom or can be a scrollable area */}
+        <aside className="w-full md:w-[300px] border-t md:border-t-0 md:border-r border-white/[0.07] bg-[#12151e] overflow-y-auto flex flex-col min-w-0 order-2 md:order-1 max-h-[40vh] md:max-h-full">
+          {/* Tool header inside sidebar (hidden on mobile to save space) */}
+          <div className="hidden md:block px-4 py-4 border-b border-white/[0.07] shrink-0">
             <div className="flex items-center gap-3">
               {ToolIcon && (
                 <div className={`w-9 h-9 rounded-xl bg-gradient-to-br ${toolColor} flex items-center justify-center shrink-0 shadow-lg`}>
@@ -187,18 +186,18 @@ export default function ToolWorkspace() {
         </aside>
 
         {/* Canvas area */}
-        <main className="relative overflow-hidden flex flex-col bg-[#0a0c10] min-w-0 order-1 md:order-2">
+        <main className="flex-1 relative overflow-hidden flex flex-col bg-[#0a0c10] min-w-0 order-1 md:order-2">
           {/* Canvas */}
-          <div ref={containerRef} className="flex-1 flex items-center justify-center p-4 md:p-8 overflow-hidden">
+          <div ref={containerRef} className="flex-1 flex items-center justify-center p-2 md:p-8 overflow-hidden relative">
             <div className="relative w-full h-full flex items-center justify-center">
               {!hasOutput && (
                 <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 pointer-events-none select-none z-10">
-                  <div className="w-16 h-16 rounded-2xl bg-white/[0.04] border border-white/10 flex items-center justify-center">
-                    <ImageIcon className="w-7 h-7 text-white/25" />
+                  <div className="w-12 h-12 md:w-16 md:h-16 rounded-2xl bg-white/[0.04] border border-white/10 flex items-center justify-center">
+                    <ImageIcon className="w-6 h-6 md:w-7 md:h-7 text-white/25" />
                   </div>
-                  <div className="text-center">
-                    <p className="text-white/35 text-sm font-medium">{t("select_image_to_begin")}</p>
-                    <p className="text-white/20 text-xs mt-1">{t("workspace_upload_hint")}</p>
+                  <div className="text-center px-4">
+                    <p className="text-white/35 text-xs md:text-sm font-medium">{t("select_image_to_begin")}</p>
+                    <p className="text-white/20 text-[10px] md:text-xs mt-1">{t("workspace_upload_hint")}</p>
                   </div>
                 </div>
               )}
@@ -225,17 +224,17 @@ export default function ToolWorkspace() {
             </div>
           </div>
 
-          {/* Status bar */}
+          {/* Status bar (hidden on very small mobile to save space) */}
           {hasOutput && (
-            <div className="h-9 border-t border-white/[0.07] bg-[#0f1117]/80 flex items-center px-4 gap-4 text-xs text-white/40 shrink-0">
-              <span className="flex items-center gap-1.5">
-                <span className="w-2 h-2 rounded-full bg-emerald-400/70" />
+            <div className="h-8 md:h-9 border-t border-white/[0.07] bg-[#0f1117]/80 flex items-center px-4 gap-4 text-[10px] md:text-xs text-white/40 shrink-0 overflow-x-auto whitespace-nowrap">
+              <span className="flex items-center gap-1.5 shrink-0">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400/70" />
                 {t("workspace_ready_to_download")}
               </span>
-              <span className="text-white/20">·</span>
-              <span>{output.w} × {output.h}px</span>
-              <span className="text-white/20">·</span>
-              <span>{formatLabel}</span>
+              <span className="text-white/20 shrink-0">·</span>
+              <span className="shrink-0">{output.w} × {output.h}px</span>
+              <span className="text-white/20 shrink-0">·</span>
+              <span className="shrink-0">{formatLabel}</span>
             </div>
           )}
         </main>
