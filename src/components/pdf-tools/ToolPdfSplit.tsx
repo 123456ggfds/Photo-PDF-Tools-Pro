@@ -1,23 +1,11 @@
 import { useState, useCallback } from "react";
 import { useDropzone } from "react-dropzone";
 import { useI18n } from "@/lib/i18n";
-import { PDFDocument, StandardFonts, rgb } from "pdf-lib";
+import { PDFDocument } from "pdf-lib";
 import { Scissors, Download, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 interface SplitFile { name: string; bytes: Uint8Array; pages: string }
-
-const addTopLeftTitle = async (doc: PDFDocument, title: string) => {
-  const page = doc.getPage(0);
-  const font = await doc.embedFont(StandardFonts.HelveticaBold);
-  page.drawText(title, {
-    x: 18,
-    y: page.getHeight() - 30,
-    size: 14,
-    font,
-    color: rgb(1, 1, 1),
-  });
-};
 
 export function ToolPdfSplit() {
   const { t } = useI18n();
@@ -73,7 +61,6 @@ export function ToolPdfSplit() {
           const newDoc = await PDFDocument.create();
           const [page] = await newDoc.copyPages(srcDoc, [i]);
           newDoc.addPage(page);
-          await addTopLeftTitle(newDoc, `Page ${i + 1}`);
           const bytes = await newDoc.save();
           outputs.push({ name: `page-${i + 1}.pdf`, bytes, pages: `${i + 1}` });
         }
@@ -84,7 +71,6 @@ export function ToolPdfSplit() {
           const pages = await newDoc.copyPages(srcDoc, group);
           pages.forEach(p => newDoc.addPage(p));
           const label = group.length === 1 ? `${group[0] + 1}` : `${group[0] + 1}-${group[group.length - 1] + 1}`;
-          await addTopLeftTitle(newDoc, `Pages ${label}`);
           const bytes = await newDoc.save();
           outputs.push({ name: `pages-${label}.pdf`, bytes, pages: label });
         }

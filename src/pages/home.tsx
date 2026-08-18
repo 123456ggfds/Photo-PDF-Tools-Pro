@@ -124,12 +124,12 @@ export default function Home() {
   const { t } = useI18n();
 
   return (
-    <div className="min-h-screen bg-[#0f1117] text-white flex flex-col">
+    <div className="h-full min-h-0 overflow-hidden bg-[#0f1117] text-white flex flex-col">
       <Navbar />
 
-      <main className="flex-1 w-full max-w-[1440px] mx-auto px-4 md:px-6">
+      <main className="flex-1 min-h-0 overflow-hidden w-full max-w-[1440px] mx-auto px-4 md:px-6 flex flex-col">
         {/* Hero */}
-        <section className="py-8 md:py-10 flex flex-col md:flex-row md:items-end md:justify-between gap-4 border-b border-white/[0.07] shrink-0">
+        <section className="py-3 md:py-4 flex flex-col md:flex-row md:items-end md:justify-between gap-4 border-b border-white/[0.07] shrink-0">
           <div className="flex items-start gap-4">
             <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-violet-500 to-fuchsia-400 flex items-center justify-center shadow-lg shrink-0 ring-1 ring-white/10">
               <FileText className="w-6 h-6 text-white" />
@@ -160,7 +160,7 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="py-5 md:py-6 shrink-0">
+        <section className="py-3 md:py-4 shrink-0">
           <Link
             href="/pdf"
             className="block rounded-3xl border border-violet-500/20 bg-gradient-to-r from-violet-500/10 via-fuchsia-500/10 to-cyan-500/10 p-5 md:p-6 hover:border-violet-400/40 transition-colors min-h-[88px] shadow-[0_10px_40px_rgba(139,92,246,0.08)]"
@@ -189,8 +189,8 @@ export default function Home() {
         </section>
 
         {/* Image tools grid */}
-        <section className="py-5 md:py-6">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 md:gap-4">
+        <section className="py-3 md:py-4 flex-1 min-h-0">
+          <div className="h-full grid grid-cols-2 md:grid-cols-4 gap-2.5 md:gap-3 auto-rows-fr">
             {tools.map((tool, i) => {
               const Icon = tool.icon;
               return (
@@ -199,7 +199,7 @@ export default function Home() {
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: i * 0.02, duration: 0.25 }}
-                    className="group flex items-start gap-3.5 p-4 rounded-2xl border border-white/[0.07] bg-white/[0.02] hover:bg-white/[0.05] hover:border-white/[0.12] transition-all duration-200 cursor-pointer min-h-[96px] shadow-[0_1px_0_rgba(255,255,255,0.03)_inset]"
+                    className="h-full min-h-0 group flex items-start gap-3 p-3 rounded-2xl border border-white/[0.07] bg-white/[0.02] hover:bg-white/[0.05] hover:border-white/[0.12] transition-all duration-200 cursor-pointer min-h-[96px] shadow-[0_1px_0_rgba(255,255,255,0.03)_inset]"
                   >
                     <div
                       className={`w-10 h-10 rounded-xl bg-gradient-to-br ${tool.color} flex items-center justify-center shrink-0 shadow-md ring-1 ring-white/10`}
@@ -226,13 +226,13 @@ export default function Home() {
       </main>
 
       {/* Footer */}
-      <footer className="border-t border-white/[0.07] py-5">
+      <footer className="border-t border-white/[0.07] py-3 shrink-0">
         <div className="w-full max-w-[1440px] mx-auto px-4 md:px-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-white/30">
           <span>© 2026 Photo Merge Pro — {t("hero_footer_primary")}</span>
           <span className="flex items-center gap-2">
             {t("hero_footer_secondary")}
             <span className="rounded-full border border-violet-400/40 bg-violet-500/15 px-2 py-1 text-[11px] font-bold text-violet-200">
-              {t("version_label")} 26.3.0
+              {t("version_label")} 26.4.0
             </span>
           </span>
         </div>

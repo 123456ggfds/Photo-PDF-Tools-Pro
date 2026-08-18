@@ -104,7 +104,7 @@ export default function PdfHub() {
   const { t } = useI18n();
 
   return (
-    <div className="min-h-screen bg-[#0f1117] text-white flex flex-col">
+    <div className="h-full min-h-0 overflow-hidden bg-[#0f1117] text-white flex flex-col">
       <Navbar />
 
       <main className="flex-1 w-full max-w-[1440px] mx-auto px-4 md:px-6">

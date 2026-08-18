@@ -50,27 +50,29 @@ export default function ToolWorkspace() {
 
   const updatePreview = useCallback(() => {
     if (!output || !previewCanvasRef.current || !containerRef.current) return;
-    
+
     const sourceCanvas = output.canvas;
     const previewCanvas = previewCanvasRef.current;
     const container = containerRef.current;
-    
+
     // Get container dimensions
     const maxWidth = container.clientWidth;
     const maxHeight = container.clientHeight;
-    
+
     // Calculate scale to fit
-    const scale = Math.min(maxWidth / sourceCanvas.width, maxHeight / sourceCanvas.height, 1);
-    
+    const fitScale = Math.min(maxWidth / sourceCanvas.width, maxHeight / sourceCanvas.height);
+    const minimumPreviewScale = Math.min(220 / sourceCanvas.width, 220 / sourceCanvas.height);
+    const scale = Math.min(fitScale, Math.max(1, minimumPreviewScale));
+
     previewCanvas.width = sourceCanvas.width;
     previewCanvas.height = sourceCanvas.height;
-    
+
     const ctx = previewCanvas.getContext("2d");
     if (ctx) {
       ctx.clearRect(0, 0, previewCanvas.width, previewCanvas.height);
       ctx.drawImage(sourceCanvas, 0, 0);
     }
-    
+
     // Apply visual scaling via CSS
     previewCanvas.style.width = `${sourceCanvas.width * scale}px`;
     previewCanvas.style.height = `${sourceCanvas.height * scale}px`;
@@ -123,7 +125,7 @@ export default function ToolWorkspace() {
   const formatLabel = output?.format === "image/jpeg" ? "JPG" : output?.format === "image/webp" ? "WEBP" : "PNG";
 
   return (
-    <div className="h-screen bg-[#0f1117] text-white flex flex-col overflow-hidden">
+    <div className="h-full min-h-0 bg-[#0f1117] text-white flex flex-col overflow-hidden">
       {/* ─── Top bar ─────────────────────────────────────────── */}
       <header className="h-14 border-b border-white/[0.07] bg-[#0f1117]/90 backdrop-blur sticky top-0 z-50 flex items-center justify-between px-4 gap-4 shrink-0">
         <div className="flex items-center gap-2 min-w-0">
@@ -163,7 +165,7 @@ export default function ToolWorkspace() {
       <div className="flex-1 flex flex-col md:flex-row overflow-hidden">
 
         {/* Sidebar / Controls - On mobile it stays at the bottom or can be a scrollable area */}
-        <aside className="w-full md:w-[300px] border-t md:border-t-0 md:border-r border-white/[0.07] bg-[#12151e] overflow-y-auto flex flex-col min-w-0 order-2 md:order-1 max-h-[40vh] md:max-h-full">
+        <aside className="w-full md:w-[300px] border-t md:border-t-0 md:border-r border-white/[0.07] bg-[#12151e] overflow-y-auto scrollbar-hidden flex flex-col min-w-0 order-2 md:order-1 max-h-[40vh] md:max-h-full">
           {/* Tool header inside sidebar (hidden on mobile to save space) */}
           <div className="hidden md:block px-4 py-4 border-b border-white/[0.07] shrink-0">
             <div className="flex items-center gap-3">
@@ -226,7 +228,7 @@ export default function ToolWorkspace() {
 
           {/* Status bar (hidden on very small mobile to save space) */}
           {hasOutput && (
-            <div className="h-8 md:h-9 border-t border-white/[0.07] bg-[#0f1117]/80 flex items-center px-4 gap-4 text-[10px] md:text-xs text-white/40 shrink-0 overflow-x-auto whitespace-nowrap">
+            <div className="h-8 md:h-9 border-t border-white/[0.07] bg-[#0f1117]/80 flex items-center px-4 gap-4 text-[10px] md:text-xs text-white/40 shrink-0 overflow-x-auto scrollbar-hidden whitespace-nowrap">
               <span className="flex items-center gap-1.5 shrink-0">
                 <span className="w-1.5 h-1.5 rounded-full bg-emerald-400/70" />
                 {t("workspace_ready_to_download")}

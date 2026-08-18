@@ -56,7 +56,7 @@ export default function PdfWorkspace() {
   };
 
   return (
-    <div className="h-screen bg-[#0f1117] text-white flex flex-col overflow-hidden">
+    <div className="h-full min-h-0 bg-[#0f1117] text-white flex flex-col overflow-hidden">
       {/* Top bar */}
       <header className="h-14 border-b border-white/[0.07] bg-[#0f1117]/90 backdrop-blur sticky top-0 z-50 flex items-center justify-between px-4 gap-4 shrink-0">
         <div className="flex items-center gap-3 min-w-0">
@@ -98,7 +98,7 @@ export default function PdfWorkspace() {
               </div>
             </div>
           </div>
-          <div className="flex-1 p-4 overflow-y-auto min-h-0">
+          <div className="flex-1 p-4 overflow-y-auto scrollbar-hidden min-h-0">
             {renderTool()}
           </div>
         </aside>

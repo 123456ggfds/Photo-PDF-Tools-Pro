@@ -106,6 +106,7 @@ export function ToolBatchCrop({ onReady }: { onReady: OnReady }) {
       urls.push(c.toDataURL("image/jpeg", 0.92));
     });
     setProcessed(urls);
+    if (outputCanvasRef.current) onReadyRef.current(outputCanvasRef.current, "image/jpeg", 0.92);
     const c = outputCanvasRef.current!;
     const first = images[0];
     if (!first) return;

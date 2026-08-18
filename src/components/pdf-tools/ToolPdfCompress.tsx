@@ -4,6 +4,7 @@ import { useI18n } from "@/lib/i18n";
 import { PDFDocument } from "pdf-lib";
 import { Minimize2, Download, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { bytesToBlobPart } from "@/lib/blob";
 
 export function ToolPdfCompress() {
   const { t } = useI18n();
@@ -34,14 +35,14 @@ export function ToolPdfCompress() {
       const newDoc = await PDFDocument.create();
       const pages = await newDoc.copyPages(srcDoc, srcDoc.getPageIndices());
       pages.forEach(p => newDoc.addPage(p));
-      
+
       // 實質壓縮：使用物件流優化並移除冗餘資料
-      const bytes = await newDoc.save({ 
-        useObjectStreams: true, 
+      const bytes = await newDoc.save({
+        useObjectStreams: true,
         addDefaultPage: false,
         updateFieldAppearances: false
       });
-      
+
       setResult({ bytes, originalSize: file.size, newSize: bytes.byteLength });
     } catch (e) {
       console.error(e);
@@ -52,7 +53,7 @@ export function ToolPdfCompress() {
 
   const download = () => {
     if (!result) return;
-    const blob = new Blob([result.bytes], { type: "application/pdf" });
+    const blob = new Blob([bytesToBlobPart(result.bytes)], { type: "application/pdf" });
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = url;

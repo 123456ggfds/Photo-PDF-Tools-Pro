@@ -1,7 +1,7 @@
 import { useState, useCallback } from "react";
 import { useDropzone } from "react-dropzone";
 import { useI18n } from "@/lib/i18n";
-import { PDFDocument, StandardFonts, rgb } from "pdf-lib";
+import { PDFDocument } from "pdf-lib";
 import { ImageUp, X, GripVertical, Download, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { bytesToBlobPart } from "@/lib/blob";
@@ -11,17 +11,6 @@ interface ImgFile { name: string; url: string; data: ArrayBuffer; size: number }
 type FitMode = "fit" | "fill" | "original";
 
 export function ToolImageToPdf() {
-  const addTopLeftTitle = async (doc: PDFDocument, title: string) => {
-    const page = doc.getPage(0);
-    const font = await doc.embedFont(StandardFonts.HelveticaBold);
-    page.drawText(title, {
-      x: 18,
-      y: page.getHeight() - 30,
-      size: 14,
-      font,
-      color: rgb(1, 1, 1),
-    });
-  };
 
   const { t } = useI18n();
   const [images, setImages] = useState<ImgFile[]>([]);
@@ -132,7 +121,6 @@ export function ToolImageToPdf() {
 
         page.drawImage(pdfImage, { x, y, width: drawW, height: drawH });
       }
-      if (pdfDoc.getPageCount() > 0) await addTopLeftTitle(pdfDoc, "Images PDF");
       const bytes = await pdfDoc.save();
       setPdfBytes(bytes);
     } catch (e) {

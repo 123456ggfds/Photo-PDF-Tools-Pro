@@ -4,8 +4,9 @@ import { useI18n } from "@/lib/i18n";
 import { ImageDown, Download, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import * as pdfjsLib from "pdfjs-dist";
+import pdfWorkerUrl from "pdfjs-dist/build/pdf.worker.min.mjs?url";
 
-pdfjsLib.GlobalWorkerOptions.workerSrc = `https://cdn.jsdelivr.net/npm/pdfjs-dist@${pdfjsLib.version}/build/pdf.worker.min.mjs`;
+pdfjsLib.GlobalWorkerOptions.workerSrc = pdfWorkerUrl;
 
 interface PageImage { url: string; page: number; width: number; height: number }
 
@@ -22,8 +23,9 @@ export function ToolPdfToImage() {
     const f = accepted[0];
     if (!f) return;
     f.arrayBuffer().then(async buf => {
+      const originalData = buf.slice(0);
       const pdf = await pdfjsLib.getDocument({ data: new Uint8Array(buf) }).promise;
-      setFile({ name: f.name, data: buf, pageCount: pdf.numPages });
+      setFile({ name: f.name, data: originalData, pageCount: pdf.numPages });
       setImages([]);
     });
   }, []);
@@ -40,7 +42,8 @@ export function ToolPdfToImage() {
     setImages([]);
     setProgress(0);
     try {
-      const pdf = await pdfjsLib.getDocument({ data: new Uint8Array(file.data) }).promise;
+      const workingCopy = file.data.slice(0);
+      const pdf = await pdfjsLib.getDocument({ data: new Uint8Array(workingCopy) }).promise;
       const results: PageImage[] = [];
       for (let i = 1; i <= pdf.numPages; i++) {
         const page = await pdf.getPage(i);
