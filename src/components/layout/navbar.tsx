@@ -33,7 +33,7 @@ export function Navbar({ inlineMode = false }: NavbarProps) {
           data-testid="button-language"
           variant="ghost"
           size="sm"
-          className="h-8 px-3 text-xs font-medium text-white/60 hover:text-white hover:bg-white/10 rounded-full gap-1.5"
+          className="h-7 px-2.5 text-xs font-medium text-white/60 hover:text-white hover:bg-white/10 rounded-full gap-1.5"
         >
           <Languages className="size-3.5" />
           {LANG_LABELS[lang]}
@@ -61,11 +61,11 @@ export function Navbar({ inlineMode = false }: NavbarProps) {
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-white/[0.07] bg-[#0f1117]/90 backdrop-blur-xl">
-      <div className="container flex h-14 items-center justify-between px-4 md:px-6">
+      <div className="container flex h-12 items-center justify-between px-3 sm:px-4 md:px-6">
         {showHomeButton ? (
           <Link
             href="/"
-            className="inline-flex h-8 items-center gap-1.5 rounded-full border border-white/10 bg-white/5 px-3 text-sm font-semibold text-white hover:bg-white/10"
+            className="inline-flex h-7 items-center gap-1.5 rounded-full border border-white/10 bg-white/5 px-2.5 text-xs font-semibold text-white hover:bg-white/10"
           >
             <ChevronLeft className="size-3.5" />
             {t("back_to_home")}

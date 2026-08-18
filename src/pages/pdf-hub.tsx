@@ -107,62 +107,65 @@ export default function PdfHub() {
     <div className="h-full min-h-0 overflow-hidden bg-[#0f1117] text-white flex flex-col">
       <Navbar />
 
-      <main className="flex-1 w-full max-w-[1440px] mx-auto px-4 md:px-6">
-        {/* Hero */}
-        <section className="py-7 md:py-8 flex flex-col md:flex-row md:items-end md:justify-between gap-4 border-b border-white/[0.07] shrink-0">
-          <div>
-            <div className="flex items-center gap-2 mb-3">
-              <Link href="/" className="text-xs text-white/40 hover:text-white/70 transition-colors">
-                {t("app_name")}
-              </Link>
-              <span className="text-white/20 text-xs">/</span>
-              <span className="text-xs text-white/60">{t("tool_pdf")}</span>
+      <main className="flex-1 min-h-0 w-full max-w-[1440px] mx-auto px-3 sm:px-4 md:px-6 flex flex-col">
+        <section className="shrink-0 py-3 md:py-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 border-b border-white/[0.07]">
+          <div className="flex items-center gap-3 min-w-0">
+            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-red-500 to-rose-400 flex items-center justify-center shadow-lg shrink-0 ring-1 ring-white/10">
+              <FileText className="w-5 h-5 text-white" />
             </div>
-            <div className="flex items-center gap-3 mb-3">
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-red-500 to-rose-400 flex items-center justify-center shadow-lg ring-1 ring-white/10">
-                <FileText className="w-5 h-5 text-white" />
+            <div className="min-w-0">
+              <div className="hidden md:flex items-center gap-2 mb-1 text-xs">
+                <Link href="/" className="text-white/40 hover:text-white/70 transition-colors">
+                  {t("app_name")}
+                </Link>
+                <span className="text-white/20">/</span>
+                <span className="text-white/60">{t("tool_pdf")}</span>
               </div>
-              <h1 className="text-3xl md:text-5xl font-black tracking-tight text-white">
+              <h1 className="text-2xl md:text-3xl font-black tracking-tight text-white leading-tight">
                 {t("tool_pdf")}
               </h1>
+              <p className="mt-0.5 text-xs md:text-sm text-white/55 leading-relaxed line-clamp-1 md:line-clamp-none">
+                {t("pdf_hub_desc")}
+              </p>
             </div>
-            <p className="text-white/55 text-sm md:text-base max-w-xl leading-relaxed">
-              {t("pdf_hub_desc")}
-            </p>
           </div>
-          <div className="flex items-center gap-2.5 shrink-0 flex-wrap justify-end">
-            <div className="flex items-center gap-1.5 text-xs text-white/45 border border-white/10 rounded-full px-3 py-1.5 bg-white/[0.03]">
+          <div className="hidden min-[760px]:flex items-center gap-2 shrink-0">
+            <div className="flex items-center gap-1.5 text-xs text-white/45 border border-white/10 rounded-full px-2.5 py-1 bg-white/[0.03]">
               <Zap className="w-3.5 h-3.5 text-yellow-400" /> {t("hero_fast")}
             </div>
-            <div className="flex items-center gap-1.5 text-xs text-white/45 border border-white/10 rounded-full px-3 py-1.5 bg-white/[0.03]">
+            <div className="flex items-center gap-1.5 text-xs text-white/45 border border-white/10 rounded-full px-2.5 py-1 bg-white/[0.03]">
               <Lock className="w-3.5 h-3.5 text-emerald-400" /> {t("hero_private")}
             </div>
           </div>
         </section>
 
-        {/* Tool grid */}
-        <section className="py-5 md:py-6">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4">
+        <section className="flex-1 min-h-0 py-3 md:py-4" aria-label={t("tool_pdf")}>
+          <div className="h-full min-h-0 grid grid-cols-1 min-[640px]:grid-cols-2 min-[980px]:grid-cols-3 min-[1280px]:grid-cols-4 min-[1580px]:grid-cols-5 auto-rows-fr gap-2.5 md:gap-3">
             {PDF_TOOLS.map((tool, i) => {
               const Icon = tool.icon;
+              const title = t(tool.titleKey as any);
               return (
-                <Link key={tool.id} href={`/pdf/${tool.id}`}>
+                <Link key={tool.id} href={`/pdf/${tool.id}`} aria-label={title} className="min-w-0">
                   <motion.div
-                    initial={{ opacity: 0, y: 14 }}
+                    initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: i * 0.06, duration: 0.3 }}
-                    className={`group flex flex-col gap-3 p-4 rounded-2xl border ${tool.border} ${tool.bg} hover:border-white/20 hover:bg-white/[0.06] transition-all duration-200 cursor-pointer min-h-[170px] shadow-[0_1px_0_rgba(255,255,255,0.03)_inset]`}
+                    transition={{ delay: i * 0.025, duration: 0.25 }}
+                    className={`group h-full min-h-0 flex items-center gap-3 p-3 rounded-2xl border ${tool.border} ${tool.bg} hover:border-white/20 hover:bg-white/[0.06] transition-all duration-200 cursor-pointer shadow-[0_1px_0_rgba(255,255,255,0.03)_inset]`}
                   >
-                    <div className={`w-11 h-11 rounded-2xl bg-gradient-to-br ${tool.color} flex items-center justify-center shadow-lg ring-1 ring-white/10`}>
-                      <Icon className="w-6 h-6 text-white" />
+                    <div className={`w-10 h-10 rounded-xl bg-gradient-to-br ${tool.color} flex items-center justify-center shrink-0 shadow-md ring-1 ring-white/10`}>
+                      <Icon className="w-5 h-5 text-white" />
                     </div>
-                    <div>
-                      <h3 className="text-sm md:text-base font-bold text-white mb-1">{t(tool.titleKey as any)}</h3>
-                      <p className="text-sm text-white/50 leading-relaxed">{t(tool.descKey as any)}</p>
-                    </div>
-                    <div className="flex items-center gap-1.5 text-xs text-white/30 group-hover:text-white/60 transition-colors mt-auto pt-1">
-                      <span>{t("pdf_open_tool")}</span>
-                      <ChevronLeft className="w-3.5 h-3.5 rotate-180" />
+                    <div className="min-w-0 flex-1">
+                      <div className="flex items-center gap-2">
+                        <h3 className="min-w-0 flex-1 text-sm font-bold text-white truncate">{title}</h3>
+                        <ChevronLeft className="w-4 h-4 rotate-180 text-white/25 group-hover:text-white/70 transition-colors shrink-0" />
+                      </div>
+                      <p className="mt-1 text-xs text-white/50 leading-relaxed line-clamp-1 min-[980px]:line-clamp-2">
+                        {t(tool.descKey as any)}
+                      </p>
+                      <div className="hidden min-[980px]:block mt-1.5 text-[11px] text-white/30 group-hover:text-white/60 transition-colors">
+                        {t("pdf_open_tool")}
+                      </div>
                     </div>
                   </motion.div>
                 </Link>
@@ -172,8 +175,8 @@ export default function PdfHub() {
         </section>
       </main>
 
-      <footer className="border-t border-white/[0.07] py-5">
-        <div className="w-full max-w-[1440px] mx-auto px-4 md:px-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-white/30">
+      <footer className="shrink-0 border-t border-white/[0.07] py-2.5 md:py-3">
+        <div className="w-full max-w-[1440px] mx-auto px-3 sm:px-4 md:px-6 flex flex-col sm:flex-row items-center justify-between gap-1.5 text-[11px] md:text-xs text-white/30">
           <span>© 2026 Photo Merge Pro — {t("hero_footer_primary")}</span>
           <span>{t("hero_footer_secondary")}</span>
         </div>
