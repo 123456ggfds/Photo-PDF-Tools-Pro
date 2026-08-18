@@ -75,22 +75,27 @@ export function Navbar({ inlineMode = false }: NavbarProps) {
             <button
               type="button"
               onClick={() => setHistoryOpen((v) => !v)}
-              className="inline-flex h-9 items-center gap-2 rounded-full border border-violet-300/40 bg-gradient-to-r from-violet-500/20 to-fuchsia-500/20 px-4 text-sm font-extrabold text-white shadow-[0_0_0_1px_rgba(139,92,246,0.12)] hover:from-violet-500/30 hover:to-fuchsia-500/30"
+              aria-expanded={historyOpen}
+              aria-controls="version-history-panel"
+              className="inline-flex h-8 items-center gap-2 rounded-full border border-violet-300/40 bg-gradient-to-r from-violet-500/20 to-fuchsia-500/20 px-3 text-xs font-extrabold text-white shadow-[0_0_0_1px_rgba(139,92,246,0.12)] hover:from-violet-500/30 hover:to-fuchsia-500/30"
             >
               <History className="size-3.5 text-violet-200" />
               {t("version_history")}
             </button>
             {historyOpen && (
-              <div className="absolute left-0 top-11 z-50 w-56 rounded-2xl border border-violet-400/20 bg-[#121522] p-3 shadow-[0_18px_60px_rgba(0,0,0,0.45)]">
-                <div className="text-[11px] font-bold uppercase tracking-[0.28em] text-violet-200/75">
+              <div id="version-history-panel" role="dialog" aria-label={t("version_history")} className="absolute left-0 top-10 z-50 w-56 rounded-2xl border border-violet-400/20 bg-[#121522] p-2.5 shadow-[0_18px_60px_rgba(0,0,0,0.45)]">
+                <div className="text-[10px] font-bold uppercase tracking-[0.22em] text-violet-200/75">
                   {t("version_history_title")}
                 </div>
-                <div className="mt-2 space-y-2 max-h-[300px] overflow-y-auto pr-1">
+                <div className="mt-1.5 space-y-1">
                   {(
                     [
                       {
-                        label: t("version_history_item_2630"),
+                        label: t("version_history_item_2640"),
                         current: true,
+                      },
+                      {
+                        label: t("version_history_item_2630"),
                       },
                       {
                         label: t("version_history_item_2623"),
@@ -114,7 +119,7 @@ export function Navbar({ inlineMode = false }: NavbarProps) {
                   ).map((item) => (
                     <div
                       key={item.label}
-                      className={`flex items-center justify-between rounded-xl px-3 py-2 text-sm ${
+                      className={`flex items-center justify-between rounded-xl px-2.5 py-1.5 text-xs ${
                         item.current
                           ? "bg-gradient-to-r from-violet-500/25 to-fuchsia-500/20 text-white ring-1 ring-violet-300/20"
                           : "bg-white/5 text-white/70"
@@ -124,7 +129,7 @@ export function Navbar({ inlineMode = false }: NavbarProps) {
                         {item.label}
                       </span>
                       {item.current && (
-                        <span className="text-[10px] font-bold uppercase tracking-[0.24em] text-violet-200">
+                        <span className="text-[9px] font-bold uppercase tracking-[0.2em] text-violet-200">
                           {t("version_history_current")}
                         </span>
                       )}
